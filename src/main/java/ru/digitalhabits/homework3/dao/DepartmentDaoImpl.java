@@ -20,28 +20,34 @@ public class DepartmentDaoImpl
     @Nullable
     @Override
     public Department findById(@Nonnull Integer id) {
-        // TODO: NotImplemented
-        throw new NotImplementedException();
+        // TODO: NotImplemented (V)
+        return entityManager.find(Department.class, id);
+        //throw new NotImplementedException();
     }
 
     @Nonnull
     @Override
     public List<Department> findAll() {
-        // TODO: NotImplemented
-        throw new NotImplementedException();
+        // TODO: NotImplemented (V)
+        return entityManager.createQuery("select d from Department d", Department.class).getResultList();
+        //throw new NotImplementedException();
     }
 
     @Nonnull
     @Override
     public Department update(@Nonnull Department department) {
-        // TODO: NotImplemented
-        throw new NotImplementedException();
+        // TODO: NotImplemented (V)
+        return entityManager.merge(department);
+        //throw new NotImplementedException();
     }
 
     @Nullable
     @Override
     public Department delete(@Nonnull Integer id) {
-        // TODO: NotImplemented
-        throw new NotImplementedException();
+        // TODO: NotImplemented (V)
+        Department deletedDepartment = entityManager.find(Department.class, id);
+        entityManager.remove(deletedDepartment);
+        return deletedDepartment;
+        //throw new NotImplementedException();
     }
 }
