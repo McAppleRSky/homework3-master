@@ -29,7 +29,7 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           # TODO прописать свой TOKEN из codecov (V)
-          token: 94a12fe8-a2b4-4337-8fcc-77dfe1682529
+          token: 5bbdd976-95df-431a-8b5a-9e75d098727e
           file: build/reports/jacoco/report.xml
 
       - name: Deploy to Heroku
