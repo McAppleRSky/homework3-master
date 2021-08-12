@@ -69,7 +69,7 @@ public class DepartmentServiceImpl
     @Override
     @Transactional
     public DepartmentFullResponse update(int id, @Nonnull DepartmentRequest request) {
-        // TODO: (v) NotImplemented: обновление данных о департаменте. Если не найдено, отдавать 404:NotFound
+        // TODO: (V) NotImplemented: обновление данных о департаменте. Если не найдено, отдавать 404:NotFound
         Department updatingDepartment = departmentDao.findById(id);
         if (updatingDepartment==null){
             throw new EntityNotFoundException("Department '" + id + "' not found");
