@@ -50,4 +50,9 @@ public class PersonDaoImpl
         return deletedPerson;
         //throw new NotImplementedException();
     }
+
+    @Override
+    public void create(Person newPerson) {
+        entityManager.persist(newPerson);
+    }
 }

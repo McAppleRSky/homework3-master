@@ -50,4 +50,14 @@ public class DepartmentDaoImpl
         return deletedDepartment;
         //throw new NotImplementedException();
     }
+
+    @Override
+    public void create(@Nonnull Department newDepartment) {
+        entityManager.persist(newDepartment);
+    }
+
+    /*@Override
+    public void emplying(Department newDepartment) {
+    }*/
+
 }
