@@ -97,9 +97,9 @@ public class PersonServiceImpl
     @Override
     @Transactional
     public void addPersonToDepartment(int departmentId, int personId) {
-        // TODO: (V) NotImplemented: добавление нового человека в департамент.
-        //  Если не найден человек или департамент, отдавать 404:NotFound.
-        //  Если департамент закрыт, то отдавать 409:Conflict
+    // TODO: (V) NotImplemented: добавление нового человека в департамент.
+    //  Если не найден человек или департамент, отдавать 404:NotFound.
+    //  Если департамент закрыт, то отдавать 409:Conflict
         Department toDepartment = departmentDao.findById(departmentId);
         if(toDepartment==null){
             throw new EntityNotFoundException("Department '" + departmentId + "' not found");
@@ -111,9 +111,9 @@ public class PersonServiceImpl
                 if (addingPerson==null){
                     throw new EntityNotFoundException("Person '" + personId + "' not found");
                 } else {
-                    List<Person> persones = toDepartment.getPersones();
+                    List<Person> persones = toDepartment.getPersons();
                     persones.add(addingPerson);
-                    toDepartment.setPersones(persones);
+                    toDepartment.setPersons(persones);
                     departmentDao.update(toDepartment);
                 }
             }
@@ -123,16 +123,16 @@ public class PersonServiceImpl
     @Override
     @Transactional
     public void removePersonFromDepartment(int departmentId, int personId) {
-        // TODO: (V) NotImplemented: удаление человека из департамента.
-        //  Если департамент не найден, отдавать 404:NotFound, если не найден человек в департаменте, то ничего не делать
+    // TODO: (V) NotImplemented: удаление человека из департамента.
+    //  Если департамент не найден, отдавать 404:NotFound, если не найден человек в департаменте, то ничего не делать
         Department fromDepartment = departmentDao.findById(departmentId);
         if(fromDepartment==null){
             throw new EntityNotFoundException("Department '" + departmentId + "' not found");
         } else {
             Person removingPerson = personDao.findById(personId);
-            List<Person> persones = fromDepartment.getPersones();
+            List<Person> persones = fromDepartment.getPersons();
             persones.remove(removingPerson);
-            fromDepartment.setPersones(persones);
+            fromDepartment.setPersons(persones);
             departmentDao.update(fromDepartment);
         }
         // throw new NotImplementedException();

@@ -1,11 +1,13 @@
 package ru.digitalhabits.homework3.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @Accessors(chain = true)
 @Entity
 @Table(name = "person")
@@ -21,7 +23,9 @@ public class Person {
     @Column(name = "middle_name")
     private String middleName;
     private Integer age;
-    @ManyToOne
+/*    @Column(name = "department_id", insert="false", update="false")
+    private Integer departmentId;*/
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 

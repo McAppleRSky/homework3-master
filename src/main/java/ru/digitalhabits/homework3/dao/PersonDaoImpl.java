@@ -1,6 +1,7 @@
 package ru.digitalhabits.homework3.dao;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import ru.digitalhabits.homework3.domain.Person;
 
@@ -9,7 +10,6 @@ import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-
 @Repository
 public class PersonDaoImpl
         implements PersonDao {
@@ -20,7 +20,7 @@ public class PersonDaoImpl
     @Nullable
     @Override
     public Person findById(@Nonnull Integer id) {
-        // TODO: NotImplemented (V)
+        // TODO: (V) NotImplemented
         return entityManager.find(Person.class, id);
         //throw new NotImplementedException();
     }
@@ -28,7 +28,7 @@ public class PersonDaoImpl
     @Nonnull
     @Override
     public List<Person> findAll() {
-        // TODO: NotImplemented (V)
+        // TODO: (V) NotImplemented
         return entityManager.createQuery("select p from Person p").getResultList();
         //throw new NotImplementedException();
     }
@@ -36,7 +36,7 @@ public class PersonDaoImpl
     @Nonnull
     @Override
     public Person update(@Nonnull Person person) {
-        // TODO: NotImplemented (V)
+        // TODO: (V) NotImplemented
         return entityManager.merge(person);
         //throw new NotImplementedException();
     }
@@ -44,7 +44,7 @@ public class PersonDaoImpl
     @Nullable
     @Override
     public Person delete(@Nonnull Integer id) {
-        // TODO: NotImplemented (V)
+        // TODO: (V) NotImplemented
         Person deletedPerson = entityManager.find(Person.class, id);
         entityManager.remove(deletedPerson);
         return deletedPerson;

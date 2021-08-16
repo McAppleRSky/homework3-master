@@ -60,7 +60,7 @@ public class DepartmentServiceImpl
     public int create(@Nonnull DepartmentRequest request) {
         // TODO: (V) NotImplemented: создание нового департамента
         Department newDepartment = Department.with(request.getName());
-        departmentDao.create(newDepartment);
+        //departmentDao.create(newDepartment);
         return newDepartment.getId();
         //throw new NotImplementedException();
     }
@@ -88,7 +88,7 @@ public class DepartmentServiceImpl
         //  Если не найдено, то ничего не делать
         Department deletingDepartment = departmentDao.findById(id);
         if (deletingDepartment!=null){
-            for (Person deletingPerson : deletingDepartment.getPersones()) {
+            for (Person deletingPerson : deletingDepartment.getPersons()) {
                 personService.removePersonFromDepartment(id, deletingPerson.getId());
             }
             departmentDao.delete(id);
@@ -105,7 +105,7 @@ public class DepartmentServiceImpl
         if (closingDepartment==null){
             throw new EntityNotFoundException("Department '" + id + "' not found");
         } else {
-            for (Person deletingPerson : closingDepartment.getPersones()) {
+            for (Person deletingPerson : closingDepartment.getPersons()) {
                 personService.removePersonFromDepartment(id, deletingPerson.getId());
             }
         }

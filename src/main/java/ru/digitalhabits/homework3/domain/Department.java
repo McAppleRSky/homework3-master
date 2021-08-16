@@ -16,11 +16,12 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
     private Boolean closed;
     //                               for cascade delete persons from deleting Department
     @OneToMany(orphanRemoval = true//, cascade = CascadeType.REMOVE
                                                                 )
-    private List<Person> persones;
+    private List<Person> persons;
 
     public Department() {
 

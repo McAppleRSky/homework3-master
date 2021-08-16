@@ -2,8 +2,10 @@ plugins {
     id "java"
     id "idea"
     id "jacoco"
-    id "org.springframework.boot" version "2.4.5"
-    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id "org.springframework.boot" version "2.5.3"
+//    id "org.springframework.boot" version "2.4.5"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+//    id "io.spring.dependency-management" version "1.0.9.RELEASE"
     //id "com.gorylenko.gradle-git-properties" version "2.2.2"
 }
 
@@ -49,6 +51,8 @@ dependencies {
     testImplementation "com.h2database:h2"
     testImplementation "com.google.code.gson:gson"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
 jacocoTestReport {

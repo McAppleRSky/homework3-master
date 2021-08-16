@@ -25,7 +25,7 @@ public class ResponseHelper {
         fullResponse.setClosed(department.getClosed());
 
         List<PersonShortResponse> personShortResponses = new ArrayList<>();
-        for (Person person : department.getPersones()) {
+        for (Person person : department.getPersons()) {
             personShortResponses.add( buildPersonShortResponse(person) );
         }
         fullResponse.setPersons( personShortResponses );
