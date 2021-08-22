@@ -51,9 +51,14 @@ public class DepartmentDaoImpl
         //throw new NotImplementedException();
     }
 
-    //@Override
+    /*@Override
     public void create(@Nonnull Department newDepartment) {
+        entityManager.persist(newDepartment);}*/
+
+    @Override
+    public Department save(@Nonnull Department newDepartment) {
         entityManager.persist(newDepartment);
+        return newDepartment;
     }
 
     /*@Override

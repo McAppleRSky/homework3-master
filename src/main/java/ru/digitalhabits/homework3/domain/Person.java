@@ -1,5 +1,6 @@
 package ru.digitalhabits.homework3.domain;
 
+import com.google.common.base.Objects;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -51,4 +52,15 @@ public class Person {
                               Integer age){
         return new Person(department, firstName, lastName, middleName, age);
     }
+
+    /*@Override
+    public boolean equals(Object o){
+        o.equals(o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equal(firstName, person.firstName) &&
+                Objects.equal(lastName, person.lastName) &&
+                Objects.equal(middleName, person.middleName) &&
+                Objects.equal(age, person.age);}*/
 }

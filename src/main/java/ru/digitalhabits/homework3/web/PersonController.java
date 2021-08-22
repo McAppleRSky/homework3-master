@@ -62,7 +62,6 @@ public class PersonController {
                 .path("/{id}")
                 .buildAndExpand(id)
                 .toUri();
-
         return ResponseEntity.created(uri).build();
     }
 

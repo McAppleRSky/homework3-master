@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 @NoRepositoryBean
 public interface DepartmentDao
         extends CrudOperations<Department, Integer> {
+    Department save(Department newDepartment);
     //void create(Department newDepartment);
     /*void emplying(Department newDepartment);*/
 }

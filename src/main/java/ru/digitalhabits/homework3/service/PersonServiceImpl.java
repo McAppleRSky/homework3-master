@@ -58,9 +58,9 @@ public class PersonServiceImpl
     public int create(@Nonnull PersonRequest request) {
         // TODO: (V) NotImplemented: создание новой записи о человеке
         Department absentedDepartment = null;
-        Person newPerson = Person.with(absentedDepartment, request.getFirstName(), request.getLastName(), request.getMiddleName(), request.getAge());
-        personDao.create(newPerson);
-        return newPerson.getId();
+        Person creatingPerson = Person.with(absentedDepartment, request.getFirstName(), request.getLastName(), request.getMiddleName(), request.getAge());
+        Person createdPerson = personDao.save(creatingPerson);
+        return createdPerson.getId();
         //throw new NotImplementedException();
     }
 
@@ -111,9 +111,9 @@ public class PersonServiceImpl
                 if (addingPerson==null){
                     throw new EntityNotFoundException("Person '" + personId + "' not found");
                 } else {
-                    List<Person> persones = toDepartment.getPersons();
-                    persones.add(addingPerson);
-                    toDepartment.setPersons(persones);
+                    List<Person> persons = toDepartment.getPersons();
+                    persons.add(addingPerson);
+                    toDepartment.setPersons(persons);
                     departmentDao.update(toDepartment);
                 }
             }
@@ -130,12 +130,17 @@ public class PersonServiceImpl
             throw new EntityNotFoundException("Department '" + departmentId + "' not found");
         } else {
             Person removingPerson = personDao.findById(personId);
-            List<Person> persones = fromDepartment.getPersons();
-            persones.remove(removingPerson);
-            fromDepartment.setPersons(persones);
+            List<Person> persons = fromDepartment.getPersons();
+            persons.remove(removingPerson);
+            fromDepartment.setPersons(persons);
             departmentDao.update(fromDepartment);
         }
         // throw new NotImplementedException();
+    }
+
+    @Override
+    public void setDepartmentDao(DepartmentDao departmentDao) {
+        this.departmentDao = departmentDao;
     }
 
 }

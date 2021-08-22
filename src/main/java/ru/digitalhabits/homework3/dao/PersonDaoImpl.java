@@ -52,7 +52,8 @@ public class PersonDaoImpl
     }
 
     @Override
-    public void create(Person newPerson) {
+    public Person save(Person newPerson) {
         entityManager.persist(newPerson);
+        return newPerson;
     }
 }

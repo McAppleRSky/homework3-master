@@ -7,5 +7,5 @@ import ru.digitalhabits.homework3.domain.Person;
 @NoRepositoryBean
 public interface PersonDao
         extends CrudOperations<Person, Integer> {
-    void create(Person newPerson);
+    Person save(Person newPerson);
 }

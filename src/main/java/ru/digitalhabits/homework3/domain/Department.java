@@ -1,5 +1,6 @@
 package ru.digitalhabits.homework3.domain;
 
+import com.google.common.base.Objects;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -32,4 +33,12 @@ public class Department {
     public static Department with(String name) {
         return new Department(name);
     }
+
+    /*@Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department department = (Department) o;
+        return Objects.equal(name, department.name) &&
+                Objects.equal(closed, department.closed);}*/
 }

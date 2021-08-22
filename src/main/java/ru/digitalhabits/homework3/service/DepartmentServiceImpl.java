@@ -59,9 +59,9 @@ public class DepartmentServiceImpl
     @Transactional
     public int create(@Nonnull DepartmentRequest request) {
         // TODO: (V) NotImplemented: создание нового департамента
-        Department newDepartment = Department.with(request.getName());
-        //departmentDao.create(newDepartment);
-        return newDepartment.getId();
+        Department creatingDepartment = Department.with(request.getName());
+        Department createdDepartment = departmentDao.save(creatingDepartment);
+        return createdDepartment.getId();
         //throw new NotImplementedException();
     }
 

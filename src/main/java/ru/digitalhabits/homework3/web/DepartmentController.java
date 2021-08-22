@@ -6,11 +6,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.digitalhabits.homework3.model.*;
 import ru.digitalhabits.homework3.service.DepartmentService;
@@ -65,7 +69,6 @@ public class DepartmentController {
                 .path("/{id}")
                 .buildAndExpand(id)
                 .toUri();
-
         return ResponseEntity.created(uri).build();
     }
 
