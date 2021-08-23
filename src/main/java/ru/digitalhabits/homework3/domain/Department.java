@@ -3,7 +3,8 @@ package ru.digitalhabits.homework3.domain;
 import com.google.common.base.Objects;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,7 +19,10 @@ public class Department {
     private Integer id;
     private String name;
 
-    private Boolean closed;
+    /*@Column(
+            nullable = false
+            , columnDefinition = "boolean default false")*/
+    private Boolean closed = false;
     //                               for cascade delete persons from deleting Department
     @OneToMany(orphanRemoval = true//, cascade = CascadeType.REMOVE
                                                                 )
@@ -27,11 +31,11 @@ public class Department {
     public Department() {
 
     }
-    public Department(String name) {
+    /*public Department(String name) {
         this.name = name;
-    }
+    }*/
     public static Department with(String name) {
-        return new Department(name);
+        return new Department().setName(name);
     }
 
     /*@Override

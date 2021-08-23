@@ -20,12 +20,14 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class DepartmentServiceImpl
         implements DepartmentService {
 
     // spy:
-    private final DepartmentDao departmentDao;
+    @Autowired
+    private //final
+    DepartmentDao departmentDao;
 
     @Autowired
     private PersonService personService;
@@ -86,13 +88,15 @@ public class DepartmentServiceImpl
     public void delete(int id) {
         // TODO: (V) NotImplemented: удаление всех людей из департамента и удаление самого департамента.
         //  Если не найдено, то ничего не делать
-        Department deletingDepartment = departmentDao.findById(id);
+        /*Department deletingDepartment = departmentDao.findById(id);
         if (deletingDepartment!=null){
-            for (Person deletingPerson : deletingDepartment.getPersons()) {
-                personService.removePersonFromDepartment(id, deletingPerson.getId());
-            }
-            departmentDao.delete(id);
+        }*/
+        Department deletingDepartment = departmentDao.findById(id);
+        List<Person> persons = deletingDepartment.getPersons();
+        for (Person deletingPerson : persons) {
+            personService.removePersonFromDepartment(id, deletingPerson.getId());
         }
+        departmentDao.delete(id);
         //throw new NotImplementedException();
     }
 
@@ -112,5 +116,13 @@ public class DepartmentServiceImpl
         closingDepartment.setClosed(true);
         departmentDao.update(closingDepartment);
         //throw new NotImplementedException();
+    }
+
+    // for unit test delete() method
+    public DepartmentServiceImpl() {
+    }
+    public DepartmentServiceImpl(DepartmentDao departmentDao, PersonService personService) {
+        this.departmentDao = departmentDao;
+        this.personService = personService;
     }
 }

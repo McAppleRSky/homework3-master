@@ -21,8 +21,7 @@ import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.junit.jupiter.api.Assertions.*;import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 //@SpringBootTest
 class PersonServiceTest {
@@ -161,29 +160,30 @@ class PersonServiceTest {
     }
     @Test
     void delete() {
-        // TODO: (V~) NotImplemented
-        int min = 2, max = 9;
+        // TODO: (V) NotImplemented
+        /*int min = 2, max = 9;
         Random random = new Random();
         int count = min + random.nextInt(max-min);
 
         int ID = 0, AGE = 1, FIRST = 0, LAST = 1, MIDDLE = 2;
-        String[] name = new String[3];
-        for (int i = 0; i < 3; i++) {
-            name[i] = randomAlphabetic(7);
-        }
         int[] ints = new int[2];
+        String[] name = new String[3];
         for (int i = 0; i < 2; i++) {
             ints[i] = nextInt();
         }
-        when(personDao.findById(anyInt()))
-                .thenReturn(Person.with(ints[ID])
-                        .setFirstName(name[FIRST])
-                        .setLastName(name[LAST])
-                        .setMiddleName(name[MIDDLE])
-                        .setAge(ints[AGE])
-                        .setDepartment(Department.with(""))
-                );
-        assertEquals(0, count);
+        for (int i = 0; i < 3; i++) {
+            name[i] = randomAlphabetic(7);}*/
+        int id = nextInt();
+        doAnswer(invocation -> {  //NOVA
+            Object arg0 = invocation.getArgument(0);
+
+            assertEquals(id, arg0);
+            //persons.remove(arg1);
+            return null;
+        }).when(personDao).delete(anyInt());
+        personService.delete(id);
+        //when(personDao.findById(anyInt())).thenReturn(Person.with(ints[ID]).setFirstName(name[FIRST]).setLastName(name[LAST]).setMiddleName(name[MIDDLE]).setAge(ints[AGE]).setDepartment(Department.with("")));
+        //assertEquals(0, count);
     }
 
     @Test

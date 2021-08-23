@@ -86,10 +86,10 @@ public class PersonServiceImpl
     @Transactional
     public void delete(int id) {
         // TODO: (V) NotImplemented: удаление информации о человеке и удаление его из отдела. Если не найдено, ничего не делать
-        Person deletingPerson = personDao.findById(id);
+        /*Person deletingPerson = personDao.findById(id);
         if (deletingPerson!=null){
-            personDao.delete(id);
-        }
+        }*/
+        personDao.delete(id);
         //throw new NotImplementedException();
     }
 

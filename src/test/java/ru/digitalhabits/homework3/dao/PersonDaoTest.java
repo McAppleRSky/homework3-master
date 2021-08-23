@@ -154,7 +154,7 @@ class PersonDaoTest {
         int min = 2, max = 9;
         Random random = new Random();
         int count = min + random.nextInt(max-min);
-        int targetI = min + random.nextInt(count-min) - 1;
+        int targetI = count == 2 ? 1 : min + random.nextInt(count-min) - 1;
 
         int ID = 0, AGE = 1, FIRST = 0, LAST = 1, MIDDLE = 2;
         int[][] ints = new int[count][2];

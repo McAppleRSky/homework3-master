@@ -1,19 +1,27 @@
 package ru.digitalhabits.homework3.web;
 
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.digitalhabits.homework3.dao.DepartmentDao;
 import ru.digitalhabits.homework3.domain.Department;
 import ru.digitalhabits.homework3.domain.Person;
 import ru.digitalhabits.homework3.model.DepartmentFullResponse;
 import ru.digitalhabits.homework3.model.DepartmentRequest;
 import ru.digitalhabits.homework3.model.DepartmentShortResponse;
 import ru.digitalhabits.homework3.service.DepartmentService;
+import ru.digitalhabits.homework3.service.DepartmentServiceImpl;
 import ru.digitalhabits.homework3.service.PersonService;
 import ru.digitalhabits.homework3.service.ResponseHelper;
 
@@ -25,20 +33,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(
-        webEnvironment=SpringBootTest.WebEnvironment.MOCK,
-        classes = DepartmentControllerTest.DepartmentControllerConfiguration.class)
+        webEnvironment=SpringBootTest.WebEnvironment.MOCK
+        //,classes = DepartmentControllerTest.DepartmentControllerConfiguration.class
+)
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase
+//@WebMvcTest(DepartmentController.class)
 class DepartmentControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
     private DepartmentService departmentService;
-    @Autowired
     private PersonService personService;
-    @Autowired
     private DepartmentController departmentController;
+
+    @BeforeEach
+    void init(){
+        this.departmentService = mock(DepartmentService.class);
+        this.personService = mock(PersonService.class);
+        this.departmentController = new DepartmentController(departmentService, personService);
+    }
 
     @Test
     void departments() {
@@ -148,7 +163,7 @@ class DepartmentControllerTest {
         departmentController.closeDepartment(departmentId);
     }
 
-    @Configuration
+    /*@Configuration
     //@Import(MockServiceConfiguration.class)
     static class DepartmentControllerConfiguration{
         @Bean
@@ -161,8 +176,6 @@ class DepartmentControllerTest {
         }
         @Bean
         DepartmentController departmentController(){
-            return new DepartmentController( departmentService(), personService() );
-        }
-    }
+            return new DepartmentController( departmentService(), personService() );}}*/
 
 }

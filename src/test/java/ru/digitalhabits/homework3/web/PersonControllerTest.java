@@ -1,10 +1,14 @@
 package ru.digitalhabits.homework3.web;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,15 +33,19 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(
-        webEnvironment=SpringBootTest.WebEnvironment.MOCK,
-        classes = PersonControllerTest.PersonControllerConfiguration.class)
+        webEnvironment=SpringBootTest.WebEnvironment.MOCK
+        //,classes = PersonControllerTest.PersonControllerConfiguration.class
+)
+@AutoConfigureTestDatabase
 class PersonControllerTest {
-
-    //@Autowired private MockMvc mockMvc;
-    @Autowired
     private PersonService personService;
-    @Autowired
     private PersonController personController;
+
+    @BeforeEach
+    void init(){
+        this.personService = mock(PersonService.class);
+        this.personController = new PersonController(personService);
+    }
 
     @Test
     void persons() {
@@ -148,7 +156,7 @@ class PersonControllerTest {
         personController.deletePerson(id);
     }
 
-    @Configuration
+    /*@Configuration
     static class PersonControllerConfiguration{
         @Bean
         PersonService personService(){
@@ -156,7 +164,6 @@ class PersonControllerTest {
         }
         @Bean
         PersonController personController(){
-            return new PersonController( personService() );
-        }
-    }
+            return new PersonController( personService() );}}*/
+
 }

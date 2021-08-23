@@ -3,10 +3,18 @@ package ru.digitalhabits.homework3.dao;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import ru.digitalhabits.homework3.HomeworkApplication;
 import ru.digitalhabits.homework3.domain.Department;
+import ru.digitalhabits.homework3.service.DepartmentService;
+import ru.digitalhabits.homework3.service.PersonService;
+import ru.digitalhabits.homework3.web.DepartmentController;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +25,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomUtils.nextInt;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 @DataJpaTest
 @ComponentScan(basePackages = "ru.digitalhabits.homework3")
@@ -104,13 +113,13 @@ class DepartmentDaoTest {
         int min = 2, max = 9;
         Random random = new Random();
         int count = min + random.nextInt(max-min);
-        int targetI = min + random.nextInt(count-min) - 1;
+        int targetI = count == 2 ? 1 : min + random.nextInt(count-min) - 1;
         Pair departmentDeleting = null;
         for (int i = 0; i < count; i++) {
-            int randimId = nextInt();
-            testValues.put(randimId, randomAlphabetic(7));
+            int randomId = nextInt();
+            testValues.put(randomId, randomAlphabetic(7));
             if (i==targetI) {
-                departmentDeleting = Pair.of(randimId, testValues.get(randimId));
+                departmentDeleting = Pair.of(randomId, testValues.get(randomId));
             }
         }
         String querySrc = "insert into department (id, name) values (:id, :name);";
@@ -126,4 +135,5 @@ class DepartmentDaoTest {
         assertEquals(departmentDeleting.getValue().toString(), departmentDeleted.getName());
         assertEquals(count-1, entityManager.getEntityManager().createNativeQuery(querySrc).getResultList().size());
     }
+
 }

@@ -13,9 +13,9 @@ import ru.digitalhabits.homework3.model.DepartmentRequest;
 import ru.digitalhabits.homework3.model.DepartmentShortResponse;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -30,13 +30,13 @@ class DepartmentServiceTest {
 
     private DepartmentDao departmentDao;
     private DepartmentService departmentService;
-    //private PersonService personService;
+    private PersonService personService;
 
     @BeforeEach
     void init(){
         this.departmentDao = mock(DepartmentDao.class);
-        this.departmentService = new DepartmentServiceImpl(departmentDao);
-        //this.personService = mock(PersonService.class);
+        this.personService = mock(PersonService.class);
+        this.departmentService = new DepartmentServiceImpl(departmentDao, personService);
     }
 
     @Test
@@ -106,30 +106,39 @@ class DepartmentServiceTest {
 
     @Test
     void delete() {
-        // TODO: (v~) NotImplemented
+        // TODO: (v) NotImplemented
+        int id = nextInt();
+        String name = randomAlphabetic(7);
         int min = 2, max = 9;
         Random random = new Random();
         int count = min + random.nextInt(max-min);
-        int id = nextInt();
+
         List<Person> persons = range(0, count)
                 .mapToObj(i -> Person.with(nextInt()))
                 .collect(toList());
-        String name = randomAlphabetic(7);
-        /*doAnswer(invocation -> {  NOVA
+        ConcurrentHashMap<Integer, Person> testPersons = new ConcurrentHashMap<>();
+        for (Person person : persons) {
+            testPersons.put(person.getId(), person);
+        }
+        doAnswer(invocation -> {
+            Object arg0 = invocation.getArgument(0);
+            assertEquals(id, arg0);
+            return null;
+        }).when(departmentDao).delete(anyInt());
+        doAnswer(invocation -> {  //NOVA
             Object arg0 = invocation.getArgument(0);
             Object arg1 = invocation.getArgument(1);
-
             assertEquals(id, arg0);
-            persons.remove(arg1);
+            testPersons.remove(arg1);
             return null;
-        }).when(personService).removePersonFromDepartment(anyInt(), anyInt());*/
-        when( departmentDao.findById( anyInt() ) )
-                .thenReturn(Department.with(name)
-                        .setId(id)
-                        .setClosed(false)
-                        .setPersons(persons));
+        }).when(personService).removePersonFromDepartment(anyInt(), anyInt());
+        when(departmentDao.findById(anyInt()))
+                .thenReturn(
+                        Department.with(name).setId(id).setClosed(false).setPersons(persons)
+                );
+        assertEquals(count, testPersons.size());
         departmentService.delete(id);
-        assertEquals(0, count);
+        assertEquals(0, testPersons.size());
     }
 
     @Test

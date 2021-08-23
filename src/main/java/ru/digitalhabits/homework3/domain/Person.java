@@ -4,6 +4,8 @@ import com.google.common.base.Objects;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 
@@ -16,6 +18,9 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Column(nullable = false)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Generated(GenerationTime.INSERT)
     private Integer id;
     @Column(name = "first_name")
     private String firstName;
